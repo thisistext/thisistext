@@ -65,31 +65,11 @@
             position: absolute;
             content: "";
             left: 0;
-            top: 24%; /* 텍스트 높이의 80% 위치 */
+            top: 45%;
             right: 0;
-            border-top: 3px solid;
+            border-top: 4px solid;
             border-color: inherit;
-            transform: rotate(16deg) scaleX(0);
-            transform-origin: left;
-            animation: strikeThrough 0.6s ease-out forwards;
-        }
-
-        .line:nth-child(1) .strikethrough:before {
-            animation-delay: 0.3s;
-        }
-
-        .line:nth-child(2) .strikethrough:before {
-            animation-delay: 0.5s;
-        }
-
-        .line:nth-child(3) .strikethrough:before {
-            animation-delay: 0.7s;
-        }
-
-        @keyframes strikeThrough {
-            to {
-                transform: rotate(16deg) scaleX(1);
-            }
+            transform: rotate(16deg);
         }
 
         .container.white {
