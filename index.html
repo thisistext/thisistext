@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>this is text</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,7 +22,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
             cursor: pointer;
         }
 
@@ -39,60 +42,56 @@
         }
 
         h1 {
-            font-size: clamp(4rem, 15vw, 20rem);
-            font-weight: 900;
+            font-size: clamp(5rem, 18vw, 24rem);
+            font-weight: 700;
             letter-spacing: -0.05em;
             line-height: 0.9;
             color: #fff;
-            transition: color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: lowercase;
-            position: relative;
-            animation: fadeIn 1.5s ease-out;
+            transition: color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .line {
             display: block;
-            overflow: hidden;
+            position: relative;
         }
 
-        .line span {
+        .strikethrough {
+            position: relative;
             display: inline-block;
-            animation: slideUp 1s cubic-bezier(0.65, 0, 0.35, 1) backwards;
         }
 
-        .line:nth-child(1) span {
-            animation-delay: 0.1s;
+        .strikethrough:before {
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 24%; /* 텍스트 높이의 80% 위치 */
+            right: 0;
+            border-top: 3px solid;
+            border-color: inherit;
+            transform: rotate(16deg) scaleX(0);
+            transform-origin: left;
+            animation: strikeThrough 0.6s ease-out forwards;
         }
 
-        .line:nth-child(2) span {
+        .line:nth-child(1) .strikethrough:before {
             animation-delay: 0.3s;
         }
 
-        .line:nth-child(3) span {
+        .line:nth-child(2) .strikethrough:before {
             animation-delay: 0.5s;
         }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
+        .line:nth-child(3) .strikethrough:before {
+            animation-delay: 0.7s;
+        }
+
+        @keyframes strikeThrough {
             to {
-                transform: translateY(0);
-                opacity: 1;
+                transform: rotate(16deg) scaleX(1);
             }
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* White mode */
         .container.white {
             background: #fff;
         }
@@ -101,53 +100,9 @@
             color: #000;
         }
 
-        /* Subtle hint */
-        .hint {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.875rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.3);
-            transition: color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .container.white .hint {
-            color: rgba(0, 0, 0, 0.3);
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 0.3;
-            }
-            50% {
-                opacity: 0.6;
-            }
-        }
-
-        /* Mobile adjustments */
         @media (max-width: 768px) {
             h1 {
-                font-size: clamp(3rem, 12vw, 15rem);
-            }
-            
-            .hint {
-                bottom: 2rem;
-                font-size: 0.75rem;
-            }
-        }
-
-        /* Hover effect for desktop */
-        @media (hover: hover) {
-            h1 {
-                transition: all 0.3s ease;
-            }
-            
-            .container:hover h1 {
-                letter-spacing: -0.02em;
+                font-size: clamp(3.5rem, 15vw, 18rem);
             }
         }
     </style>
@@ -156,12 +111,11 @@
     <div class="container" id="container">
         <div class="text-wrapper">
             <h1>
-                <span class="line"><span>this</span></span>
-                <span class="line"><span>is</span></span>
-                <span class="line"><span>text</span></span>
+                <span class="line"><span class="strikethrough">this</span></span>
+                <span class="line"><span class="strikethrough">is</span></span>
+                <span class="line"><span class="strikethrough">text</span></span>
             </h1>
         </div>
-        <div class="hint">tap to switch</div>
     </div>
 
     <script>
@@ -176,14 +130,6 @@
                 container.classList.remove('white');
             }
         });
-
-        // Keyboard interaction
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space' || e.code === 'Enter') {
-                e.preventDefault();
-                container.click();
-            }
-        });
     </script>
 </body>
-</html> 
+</html>
