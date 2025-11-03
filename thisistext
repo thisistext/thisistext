@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this is text</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            cursor: pointer;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .text-wrapper {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: clamp(4rem, 15vw, 20rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            color: #fff;
+            transition: color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: lowercase;
+            position: relative;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .line span {
+            display: inline-block;
+            animation: slideUp 1s cubic-bezier(0.65, 0, 0.35, 1) backwards;
+        }
+
+        .line:nth-child(1) span {
+            animation-delay: 0.1s;
+        }
+
+        .line:nth-child(2) span {
+            animation-delay: 0.3s;
+        }
+
+        .line:nth-child(3) span {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* White mode */
+        .container.white {
+            background: #fff;
+        }
+
+        .container.white h1 {
+            color: #000;
+        }
+
+        /* Subtle hint */
+        .hint {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.875rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            transition: color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .container.white .hint {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: clamp(3rem, 12vw, 15rem);
+            }
+            
+            .hint {
+                bottom: 2rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Hover effect for desktop */
+        @media (hover: hover) {
+            h1 {
+                transition: all 0.3s ease;
+            }
+            
+            .container:hover h1 {
+                letter-spacing: -0.02em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="text-wrapper">
+            <h1>
+                <span class="line"><span>this</span></span>
+                <span class="line"><span>is</span></span>
+                <span class="line"><span>text</span></span>
+            </h1>
+        </div>
+        <div class="hint">tap to switch</div>
+    </div>
+
+    <script>
+        const container = document.getElementById('container');
+        let isWhite = false;
+
+        container.addEventListener('click', () => {
+            isWhite = !isWhite;
+            if (isWhite) {
+                container.classList.add('white');
+            } else {
+                container.classList.remove('white');
+            }
+        });
+
+        // Keyboard interaction
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                e.preventDefault();
+                container.click();
+            }
+        });
+    </script>
+</body>
+</html> 
